@@ -1,0 +1,65 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ name }}'s Containers</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <style>
+        p {
+            margin-bottom: 0px;
+            margin-top: 0px;
+            font-family: Consolas;
+        }
+        .blink{
+            animation-duration: 0.5s;
+            animation-name: blink;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+            animation-timing-function: ease-in-out;
+        }
+        @keyframes blink {
+            0%{
+                opacity: 1;
+            }
+            50%{
+                opacity: 1;
+            }
+            51%{
+                opacity: 0; 
+            }
+            100%{
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body bgcolor="#1e1e1e">
+<p><span style="color: #ff4dfb;">----------------------------------------------------------------------Information---------------------------------------------------------------------------------------------</span>
+<p><span style="color: #bebe24;">Your All Containers</span></p>
+
+<p>
+<table>
+    <tr>
+        <td><span style="color: #ffffff; ">NAMES</span></td>
+        <td><span style="color: #ffffff; ">STATUS</span></td>
+        <td><span style="color: #ffffff; ">PORTS</span></td>
+    </tr>
+    {% for container, data in containers %}
+        <tr>
+            <td><span style="color: #ffffff;margin-right: 60px ">{{ container }}</span></td>
+            <td><span style="color: #ffffff;margin-right: 60px ">{{ data['Status'] }}</span></td>
+            <td><span style="color: #ffffff;margin-right: 60px ">{{ data['Ports'] }}<a href={{ data['jupyter_link'] }} target="_blank" style="color:#f37726;">{{ data['jupyter_text'] }}</a></span></td>
+        </tr>
+    {% endfor %}
+</table>
+</p>
+<br><br>
+{% if  running >=3 %}
+<p><span class="blink" style="color: #ff6060;">Running : {{ running }}</span></p>
+{% else  %}
+<p><span style="color: #0fb16c;">Running : {{ running }}</span></p>
+{% endif %}
+<p><span style="color: #54ccef;">Total : {{ total }}</span></p>
+<p><span style="color: #ff4dfb;">-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------</span>
+</p>
+</body>
+</html>
